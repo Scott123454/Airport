@@ -36,9 +36,10 @@ describe "airport"  do
 			fill_airport(airport)
 			expect(airport.land(plane)).to eq("AIRPORT IS FULL")	
 		end
+	end
 
 
-	context "weather conditions"
+	context "weather conditions" do
 
 		it "a plane cannot take off when there is a storm brewing" do
 			airport.stub(:weather_selector).and_return('stormy')
@@ -49,6 +50,21 @@ describe "airport"  do
 		it"plane cannot land in storm" do
 			airport.stub(:weather_selector).and_return 'stormy'	
 			expect(airport.clear_to_land(plane)).to eq("CANNOT LAND STORM BREWING")
+		end	
+	end
+
+	context "grand finale all planes can land and takeoff" do
+
+		it "all planes takeoff then land" do
+			airport.stub(:weather_selector).and_return('sunny')
+			fill_airport(airport)
+			expect(airport.plane_count).to eq(40)
+			plane.take_off
+			40.times {airport.takeoff(plane)}
+			expect(airport.plane_count).to eq(0)
+			plane.landed?
+			40.times {airport.land(plane)}
+			expect(airport.plane_count).to eq(40)
 		end	
 
 	end

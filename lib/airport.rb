@@ -57,9 +57,5 @@ class Airport
 end
 
 
-	# def initialize(planes = [], options = {})
-	# 	@capacity = options.fetch(:capacity, DEFAULT_CAPACITY)
-	# 	@planes = planes
-
 
 
