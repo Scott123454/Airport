@@ -19,6 +19,9 @@ class Airport
 	end
 
 	def land(plane)
+		if full?
+			return "AIRPORT IS FULL"
+		end
 		@planes << plane
 	end
 
@@ -30,18 +33,26 @@ class Airport
 		plane_count == CAPACITY
 	end
 
-	def capacity
-		if full == true
+	def clear_to_land(plane)
+		if weather_selector == 'stormy'
+			return	"CANNOT LAND STORM BREWING"
+		end
+		if full?	
 			return "AIRPORT IS FULL"
+		end
+		plane.landed?
+		@planes << plane
+		
+	end
+
+
+	def clear_to_takeoff(plane)
+		if weather_selector == 'stormy'
+			return "CANNOT TAKEOFF"
+			plane.takeoff(plane)
 		end
 	end
 
-	def clear_to_land
-		if weather_selector == 'stormy'
-			return	"CANNOT LAND STORM BREWING"
-			# land(plane)
-		end
-	end
 
 end
 
