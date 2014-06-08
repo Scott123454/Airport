@@ -2,60 +2,43 @@ require "weather"
 
 class Airport
 
-	include Weather
+include Weather
 
-	CAPACITY = 40
+Capacity = 3
 
-	def initialize(planes=[])
-		@planes = planes
+self.weather_sunny?
+
+def initialize
+	@planes = [Plane.new, Plane.new]
+end
+
+def land_plane(plane)
+	if weather_sunny? == false 
+		raise "Stormy cannot land"
+	elsif full 
+	 	raise "Airport is full" 
+	else 
+		plane.land!
+		@planes << plane	
 	end
+end
 
-	def plane_count
-		@planes.count
+def plane_count
+	@planes.count
+end
+
+def clear_for_takeoff(plane)
+	if weather_sunny? == false
+		raise "Stormy cannot takeoff"
+	else
+	@planes.pop
+	plane.fly!
 	end
+end
 
-	def has_planes?
-		@planes.any?
-	end
-
-	def land(plane)
-		if full?
-			return "AIRPORT IS FULL"
-		end
-		@planes << plane
-	end
-
-	def takeoff(plane)
-		@planes.pop
-	end
-
-	def full?
-		plane_count == CAPACITY
-	end
-
-	def clear_to_land(plane)
-		if weather_selector == 'stormy'
-			return	"CANNOT LAND STORM BREWING"
-		end
-		if full?	
-			return "AIRPORT IS FULL"
-		end
-		plane.landed?
-		@planes << plane
-		
-	end
-
-
-	def clear_to_takeoff(plane)
-		if weather_selector == 'stormy'
-			return "CANNOT TAKEOFF"
-			plane.takeoff(plane)
-		end
-	end
-
-
+def full
+	plane_count == Capacity
 end
 
 
-
-
+end
